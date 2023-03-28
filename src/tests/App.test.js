@@ -1,5 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
+import { screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from '../renderWithRouter';
 import App from '../App';
@@ -49,4 +49,18 @@ it('deve renderizar o componente Favorite Pokémon', () => {
 
   const { pathname } = history.location;
   expect(pathname).toBe('/favorites');
+});
+
+it('deve testar um caminho não existente e a renderização do Not Found', () => {
+  const { history } = renderWithRouter(<App />);
+
+  act(() => {
+    history.push('/pagina/que-nao-existe/');
+  });
+
+  const notFoundTitle = screen.getByRole(
+    'heading',
+    { name: 'Page requested not found' },
+  );
+  expect(notFoundTitle).toBeInTheDocument();
 });
