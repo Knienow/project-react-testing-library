@@ -15,7 +15,7 @@ describe('Verifica se a página About contém', () => {
 
     const aboutTitle = screen.getByRole(
       'heading',
-      { name: 'About Pokédex' },
+      { level: 2, name: 'About Pokédex' },
     );
     expect(aboutTitle).toBeInTheDocument();
   });
